@@ -12,6 +12,8 @@ def hermite_interpolation_1d(keyframes: np.ndarray,
     :param interpolation_count: number of intermediate points between two keyframes (inclusive).
     :return: interpolation_count x (len(keyframes) - 1) ndarray of interpolated values.
     """
+    assert len(keyframes.shape) == 1 and keyframes.shape[0] >= 2
+    assert len(gradients.shape) == 1 and gradients.shape[0] >= 2
 
     return (np.power(np.linspace([0, 0, 0, 0],
                                  [1, 1, 1, 1],
@@ -31,11 +33,13 @@ def catmullrom_spline_1d(keyframes: np.ndarray,
                          interpolation_count: int = 100) -> np.ndarray:
     """
     Catmull-Rom interpolation of values between keyframes.
-    :param keyframes: 1D ndarray of values between which values are interpolated. It must contain at least two values.
+    :param keyframes: 1D ndarray of values between which values are interpolated. It must contain at least four values.
     :param gradients: gradients w.r.t the interpolation parameter at keyframes. It must contain at least two values.
     :param interpolation_count: number of intermediate points between two keyframes (inclusive).
     :return: interpolation_count x (len(keyframes) - 1) ndarray of interpolated values.
     """
+    assert len(keyframes.shape) == 1 and keyframes.shape[0] >= 4
+
     return (np.power(np.linspace([0, 0, 0, 0],
                                  [1, 1, 1, 1],
                                  num=interpolation_count),
